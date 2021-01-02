@@ -1,11 +1,31 @@
+import java.util.Arrays;
+
 class Scratch {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         HashTable m = new HashTable();
 
+        m.add("1", "aaa");
+        m.add("123", "bbb");
+
+        System.out.println(m);
+
+        String val = (String) m.get("1");
+        System.out.println(val);
+
+        m.add("2", 2);
+        System.out.println(m);
+
+        m.add("3", 3);
+        System.out.println(m);
+
+        m.remove("2");
+        System.out.println(m);
+
+        m.add("2", 2);
+        System.out.println(m);
+
     }
-
-
 
 
     public static class KeyValuePair<K, V>{
@@ -16,6 +36,10 @@ class Scratch {
         public KeyValuePair(K k, V v){
             this.k = k;
             this.v = v;
+        }
+
+        public String toString(){
+            return "(" + this.k + ", " + this.v + ")";
         }
     }
 
@@ -45,18 +69,21 @@ class Scratch {
             }
             return -1;
         }
-
         private void resize(int newSize){
+
+            System.out.println("resizing..");
 
             KeyValuePair oldArr[] = this.arr;
             this.arr = new KeyValuePair[newSize];
             this.size = newSize;
+            this.load = 0;
 
-            for (var i=0; i< this.size; i++){
+            for (var i=0; i< this.size/2; i++){
                 if (oldArr[i] != null && oldArr[i].k != "DUMMY"){
-                    this.add(((K) oldArr[i].k) , ((V) oldArr[i].v));
+                    this.add((K) oldArr[i].k , (V) oldArr[i].v);
                 }
             }
+            System.out.println("Done once");
         }
 
         public void add(K key, V value){
@@ -69,7 +96,7 @@ class Scratch {
             this.arr[index] = new KeyValuePair(key, value);
             this.load++;
 
-            if (this.load / this.size > 0.5){
+            if ((float)this.load / this.size >= 0.5){
                 this.resize(this.size*2);
             }
 
@@ -87,12 +114,51 @@ class Scratch {
             }
         }
 
-//        public V get(K key){
-//
-//        }
+        public V get(K key) throws Exception{
 
-//        public void remove(K key){
-//
-//        }
+            int index = this.hash(key, this.size);
+            if (this.arr[index] == null){
+                throw new Exception(key + " does not exist.");
+            }
+
+            while(this.arr[index] != null && this.arr[index].k != key){
+                index = ++index % this.size;
+            }
+
+            if (this.arr[index] != null && this.arr[index].k == key){
+                return (V)this.arr[index].v;
+            } else {
+                return null;
+            }
+        }
+
+        public void remove(K key) throws Exception {
+
+            int index = this.hash(key, this.size);
+            if (this.arr[index] == null){
+                throw new Exception(key + " does not exist.");
+            }
+
+            while(this.arr[index] != null && this.arr[index].k != key){
+                index = ++index % this.size;
+            }
+
+            if (this.arr[index] != null && this.arr[index].k == key){
+                this.arr[index] = new KeyValuePair("DUMMY", null);
+            }else {
+                throw new Exception("Key " + key + " does not exist.");
+            }
+
+
+        }
+
+        public String toString(){
+
+            String result = "";
+
+            return Arrays.toString(this.arr);
+        }
+
+
     }
 }
