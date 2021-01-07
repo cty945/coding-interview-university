@@ -641,7 +641,7 @@ Write code on a whiteboard or paper, not a computer. Test with some sample input
         - [ ] [Bithacks](https://graphics.stanford.edu/~seander/bithacks.html)
         - [ ] [The Bit Twiddler](https://bits.stephan-brumme.com/)
         - [ ] [The Bit Twiddler Interactive](https://bits.stephan-brumme.com/interactive.html)
-        - [ing] [Bit Hacks (video)](https://www.youtube.com/watch?v=ZusiKXcz_ac)
+        - [X] [Bit Hacks (video)](https://www.youtube.com/watch?v=ZusiKXcz_ac)
 		- [ ] [Practice Operations](https://pconrad.github.io/old_pconrad_cs16/topics/bitOps/) 
     - [ ] 2s and 1s complement
         - [Binary: Plusses & Minuses (Why We Use Two's Complement) (video)](https://www.youtube.com/watch?v=lKTsv6iVxV4)
