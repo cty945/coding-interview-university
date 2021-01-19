@@ -204,5 +204,50 @@ class Scratch {
 
         }
 
+        public void delete_value(int value){
+
+
+
+        }
+        private TreeNode delete_value_helper(int value, TreeNode root){
+            if (root == null){ // When the value to delete does not exist
+                return null;
+            } else if (value > root.val){
+                root.right = delete_value_helper(value, root.right);
+            } else if (value < root.val){
+                root.left = delete_value_helper(value, root.left);
+            } else { // When root has the value to delete
+                if (root.left == null && root.right == null) return null;
+                else if (root.left == null) return root.right;
+                else if (root.right == null) return root.left;
+                else { // has both children case
+                    TreeNode cur = root.right;
+
+//                    if (cur.left == null){
+//                        root.val = cur.val;
+//                        root.right = cur.right;
+//                    } else {
+//                        while (cur.left != null && cur.left.left != null){
+//                            cur = cur.left;
+//                        } // cur.left now points to the in order successor or root;
+//                        root.val = cur.left.val;
+//                        cur.left = cur.left.right;
+//                    }
+//                    return root;
+
+                    while (cur.left != null){
+                        cur = cur.left;
+                    } // cur now points to the in order successor or root;
+
+                    root.val = cur.val;
+                    root.right = delete_value_helper(cur.val, root.right);
+                }
+            }
+            return root;
+        }
+//        private void
+
+
+
     }
 }
