@@ -7,10 +7,13 @@ class Scratch {
 
         BST bst = new BST();
 
-        bst.insert(3);
-        bst.insert(5);
-        bst.insert(1);
-        bst.insert(0);
+        bst.insert(20);
+        bst.insert(8);
+        bst.insert(22);
+        bst.insert(4);
+        bst.insert(12);
+        bst.insert(10);
+        bst.insert(14);
 
         int height = bst.get_height();
 //        System.out.println(height);
@@ -21,6 +24,11 @@ class Scratch {
         System.out.println("min: " + min);
         System.out.println("max: " + max);
         System.out.println("valid: " + valid);
+
+        TreeNode key = bst.root.left.right.right;
+        int successor = bst.get_successor(key);
+        System.out.println("successor: " + successor);
+
 
 
 //        bst.print_values_by_level();
@@ -62,7 +70,6 @@ class Scratch {
         public void insert(int value) {
 
             this.root = this.insertHelper(value, this.root);
-            ;
             this.size++;
 
         }
@@ -155,7 +162,11 @@ class Scratch {
         }
 
         public Integer get_min(){
-            TreeNode cur = this.root;
+            return min(this.root);
+
+        }
+        private Integer min(TreeNode root){
+            TreeNode cur = root;
             if (cur == null){
                 return null;
             }
@@ -205,9 +216,7 @@ class Scratch {
         }
 
         public void delete_value(int value){
-
-
-
+            delete_value_helper(value, this.root);
         }
         private TreeNode delete_value_helper(int value, TreeNode root){
             if (root == null){ // When the value to delete does not exist
@@ -223,18 +232,6 @@ class Scratch {
                 else { // has both children case
                     TreeNode cur = root.right;
 
-//                    if (cur.left == null){
-//                        root.val = cur.val;
-//                        root.right = cur.right;
-//                    } else {
-//                        while (cur.left != null && cur.left.left != null){
-//                            cur = cur.left;
-//                        } // cur.left now points to the in order successor or root;
-//                        root.val = cur.left.val;
-//                        cur.left = cur.left.right;
-//                    }
-//                    return root;
-
                     while (cur.left != null){
                         cur = cur.left;
                     } // cur now points to the in order successor or root;
@@ -245,7 +242,26 @@ class Scratch {
             }
             return root;
         }
-//        private void
+
+        public int get_successor(TreeNode key){
+            return get_succssor_helper(key, this.root);
+        }
+        private int get_succssor_helper(TreeNode key, TreeNode root){
+            if (key.right != null){
+                return this.min(key.right);
+            } else {
+                TreeNode successor = null;
+                while (root != key && root != null){
+                    if (root.val > key.val){
+                        successor = root;
+                        root = root.left;
+                    } else {
+                        root = root.right;
+                    }
+                }
+                return successor != null ? successor.val : -1;
+            }
+        }
 
 
 
