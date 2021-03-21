@@ -46,16 +46,22 @@ class Scratch {
     public static class HashTable<K, V>{
 
 
-        private int size = 8;
+        private int capacity = 8;
 
-        private int load = 0;
+        private int size = 0;
 
         private KeyValuePair arr[];
 
         public HashTable(){
-            this.arr = new KeyValuePair[this.size];
+            this.arr = new KeyValuePair[this.capacity];
         }
 
+        /**
+         * This function takes in a key that is string/int and return a non negative int as the hashed value.
+         * @param k
+         * @param m
+         * @return
+         */
         private int hash(K k, int m){
             if (k instanceof Integer){
                 return ((int) k) % m;
@@ -75,10 +81,10 @@ class Scratch {
 
             KeyValuePair oldArr[] = this.arr;
             this.arr = new KeyValuePair[newSize];
-            this.size = newSize;
-            this.load = 0;
+            this.capacity = newSize;
+            this.size = 0;
 
-            for (var i=0; i< this.size/2; i++){
+            for (var i = 0; i< this.capacity /2; i++){
                 if (oldArr[i] != null && oldArr[i].k != "DUMMY"){
                     this.add((K) oldArr[i].k , (V) oldArr[i].v);
                 }
@@ -88,24 +94,24 @@ class Scratch {
 
         public void add(K key, V value){
 
-            int index = this.hash(key, this.size);
+            int index = this.hash(key, this.capacity);
             // If the hashed Index is ocupied, use linear probing.
             while (this.arr[index] != null && this.arr[index].k != key && this.arr[index].k != "DUMMY"){
-                index = ++index % this.size;
+                index = ++index % this.capacity;
             };
             this.arr[index] = new KeyValuePair(key, value);
-            this.load++;
+            this.size++;
 
-            if ((float)this.load / this.size >= 0.5){
-                this.resize(this.size*2);
+            if ((float)this.size / this.capacity >= 0.5){
+                this.resize(this.capacity *2);
             }
 
         }
 
         public boolean exists(K key){
-            int index = this.hash(key, this.size);
+            int index = this.hash(key, this.capacity);
             while(this.arr[index] != null && this.arr[index].k != key){
-                index = ++index % this.size;
+                index = ++index % this.capacity;
             }
             if (this.arr[index]== null){
                 return false;
@@ -116,13 +122,13 @@ class Scratch {
 
         public V get(K key) throws Exception{
 
-            int index = this.hash(key, this.size);
+            int index = this.hash(key, this.capacity);
             if (this.arr[index] == null){
                 throw new Exception(key + " does not exist.");
             }
 
             while(this.arr[index] != null && this.arr[index].k != key){
-                index = ++index % this.size;
+                index = ++index % this.capacity;
             }
 
             if (this.arr[index] != null && this.arr[index].k == key){
@@ -134,13 +140,13 @@ class Scratch {
 
         public void remove(K key) throws Exception {
 
-            int index = this.hash(key, this.size);
+            int index = this.hash(key, this.capacity);
             if (this.arr[index] == null){
                 throw new Exception(key + " does not exist.");
             }
 
             while(this.arr[index] != null && this.arr[index].k != key){
-                index = ++index % this.size;
+                index = ++index % this.capacity;
             }
 
             if (this.arr[index] != null && this.arr[index].k == key){

@@ -160,11 +160,7 @@ class Scratch {
         public void erase(int index){
 
             if (index == 0){
-                if (this.head.next != null){
-                    this.head = this.head.next;
-                } else {
-                    this.head = null;
-                }
+                this.head = this.head.next;
             } else {
                 ListNode cur = this.head;
                 while(index > 1){
