@@ -27,16 +27,16 @@ class Scratch {
             int i = lo+1;
             int j = high;
             while (i<j){
-                while(arr[i] < arr[lo]){
+                //Don't put if in the loop, otherwise slow down by factor of 5.
+                while(arr[i] < arr[lo] && i < high){
                     i += 1;
-                    if (i == high) break;
                 }
                 while(arr[j] > arr[lo]){
                     j -= 1;
-                    if (j == lo) break;
                 }
-                if (i >= j) break;
-                exchange(i, j, arr);
+                if (i < j) { //in case i and j already crossed each other.
+                    exchange(i, j, arr);
+                }
             }
             exchange(lo, j, arr);
             return j;
