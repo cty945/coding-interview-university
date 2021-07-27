@@ -16,6 +16,7 @@ class Scratch {
         System.out.println(v);
         System.out.println(v.size());
 
+        System.out.println("Remove 1");
         v.remove(1);
         System.out.println(v);
         System.out.println(v.size());
@@ -26,14 +27,15 @@ class Scratch {
 
         v.pop();
         System.out.println(v);
-        System.out.println(v.size());
+        System.out.println("size: " + v.size());
 
         int location = v.find(2);
-        System.out.println(location);
+        System.out.println("Location of 2:" + location);
 
+        System.out.println("Delete 2");
         v.delete(2);
         System.out.println(v);
-        System.out.println(v.size());
+        System.out.println("size: " + v.size());
     }
 
 
@@ -76,8 +78,18 @@ class Scratch {
             if (this.size == this.capacity){
                 this.resize(this.capacity * 2);
             }
-            for (int i=this.size; i>index; i--){
-                this.array[i] = this.array[i-1];
+            // back to front
+//            for (int i=this.size; i>index; i--){
+//                this.array[i] = this.array[i-1];
+//            }
+
+            //front to back
+            int temp = this.array[index];
+            int temp2;
+            for (int i=index; i<this.size; i++){
+                temp2 = this.array[i+1];
+                this.array[i+1] = temp;
+                temp = temp2;
             }
             this.array[index] = item;
             this.size++;
@@ -103,18 +115,17 @@ class Scratch {
         }
 
         public void remove(int item){
+
             int count = 0;
-            for (int i=0; i<this.size; i++){
+            for (int i=0; i<this.size;i++){
                 if (this.array[i] == item){
-                    this.array[i] = 0;
                     count++;
-                } else {
-                    if (count > 0){
-                        this.array[i - count] = this.array[i];
-                        this.array[i] = 0;
-                    }
+                } else if (count > 0){
+                    this.array[i-count] = this.array[i];
+                    this.array[i] = 0;
                 }
             }
+
             this.size -= count;
         }
 
