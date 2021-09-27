@@ -1,3 +1,5 @@
+import java.util.List;
+
 class Scratch {
     public static void main(String[] args) throws Exception {
 
@@ -232,63 +234,78 @@ class Scratch {
 
         private void recursive_reverse() {
             //fix the head pointer
-            this.head = this.rev_nontail(this.head);
-//            this.head = this.rev_tail(null, this.head);
+//            this.head = this.rev_nontail(this.head);
+            this.head = this.rev_tail(null, this.head);
         }
 
 
         /**
-         * Non-tail recursive reverse. At each iteration, link cur.next.next => cur
+         * Non-tail recursive reverse. At each iteration, link cur.next.next => cur.
+         * Changing 1 pointer at each recursion, from Tail to head.
          *
-         * @param cur
          * @return Return the last node is the original Linked List
          */
         private ListNode rev_nontail(ListNode cur) {
-            //base case: returning the last node. check cur == null in case empty list.,
-            if (cur == null || cur.next == null) {
-                return cur;
-            } else {
-                ListNode lastNode = this.rev_nontail(cur.next);
-                cur.next.next = cur;
 
-                //This line is only useful for the first node.(Tail of a linked list)
-                cur.next = null;
-                return lastNode;
+            // handle empty list case
+            if (cur == null || cur.next == null) { // when we reached the last node
+                return cur;
             }
+            ListNode last = this.rev_nontail(cur.next);
+            cur.next.next = cur;
+
+            cur.next = null;
+
+            return last;
         }
 
         /**
          * Tail recursive reverse. Node that this is just a recursive version of the iterative method.
-         * At each iteration, link cur => prev
+         * At each iteration, link cur => prev. Changing 1 pointer at each recursion, from head to tail.
          *
          * @param prev this pointer point to previous node
          * @param cur  this pointer point to current node
          * @return the last node in the original list
          */
+//        private ListNode rev_tail(ListNode prev, ListNode cur) {
+//
+//            if (cur == null) {
+//                return prev;
+//            }
+//
+//            ListNode next = cur.next;
+//            cur.next = prev;
+//
+//            return this.rev_tail(cur, next);
+//        }
+
         private ListNode rev_tail(ListNode prev, ListNode cur) {
-            //base case: at the last node. check cur == null in case empty list.,
-            if (cur == null) {
+
+            if (cur == null){
                 return prev;
-            } else {
-                ListNode next = cur.next;
-                cur.next = prev;
-                return this.rev_tail(cur, next);
             }
+
+            ListNode next = cur.next;
+            cur.next = prev;
+
+            return this.rev_tail(cur, next);
         }
 
-        private void iterative_reverse() {
-            //Iterative Method
-            ListNode prev = null;
-            ListNode cur = this.head;
-            ListNode next;
 
-            //good for size 1 case too
+        /**
+         *
+         */
+        private void iterative_reverse() {
+            ListNode prev = null, cur, next;
+
+            cur = this.head;
             while (cur != null) {
                 next = cur.next;
                 cur.next = prev;
                 prev = cur;
                 cur = next;
             }
+
             this.head = prev;
         }
 //
@@ -325,7 +342,7 @@ class Scratch {
                 this.size--;
             } else {
                 ListNode cur = this.head;
-                while (cur.next != null && cur.next.val != value){
+                while (cur.next != null && cur.next.val != value) {
                     cur = cur.next;
                 }
                 if (cur.next != null) {
