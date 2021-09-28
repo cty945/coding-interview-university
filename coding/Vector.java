@@ -52,7 +52,7 @@ class Vector {
         this.arr = new int[this.capacity];
     }
 
-    public String toString(){
+    public String toString() {
         return Arrays.toString(this.arr);
     }
 
@@ -144,13 +144,12 @@ class Vector {
 
     public int find(int item) {
         for (int i = 0; i < this.size; i++) {
-            if (this.arr[i] == item){
+            if (this.arr[i] == item) {
                 return i;
             }
         }
         return -1;
     }
-
 
 
 }
