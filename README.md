@@ -630,7 +630,7 @@ Write code on a whiteboard or paper, not a computer. Test with some sample input
     - [X] [detail](https://www.topcoder.com/community/competitive-programming/tutorials/binary-search/)
     - [X] Implement:
         - binary search (on sorted array of integers)
-        [ ] binary search using recursion todo
+        [ ] binary search using recursion todo 
 
 - ### Bitwise operations
     - [ ] [Bits cheat sheet](https://github.com/jwasham/coding-interview-university/blob/master/extras/cheat%20sheets/bits-cheat-sheet.pdf) - you should know many of the powers of 2 from (2^1 to 2^16 and 2^32)
