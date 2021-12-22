@@ -4,41 +4,41 @@ class Scratch {
     public static void main(String[] args) throws Exception {
         HashTableLinearProbing<Integer, Integer> m = new HashTableLinearProbing<Integer, Integer>(8, (float)0.5);
 
-        m.add(1, 9);
-        m.add(123, 8);
-
-        System.out.println(m);
-
-        System.out.println("get 1");
-        Integer val = m.get(1);
-        System.out.println("val:" + val);
-
-        System.out.println("add ?");
-        m.add(5, 2);
-        System.out.println(m);
-
-
-        System.out.println("add 13");
-        m.add(13, 2);
-        System.out.println(m);
-
-        System.out.println("add 2");
-        m.add(2, 2);
-        System.out.println(m);
-
-        System.out.println("remove 2");
-        m.remove(2);
-        System.out.println(m);
-
-        System.out.println("add ?");
-        m.add(3, 9);
-        System.out.println(m);
-
-        System.out.println("Exist 3?" + m.exists(4));
-
-        System.out.println("add 2");
-        m.add(2, 2);
-        System.out.println(m);
+//        m.add(1, 9);
+//        m.add(123, 8);
+//
+//        System.out.println(m);
+//
+//        System.out.println("get 1");
+//        Integer val = m.get(1);
+//        System.out.println("val:" + val);
+//
+//        System.out.println("add ?");
+//        m.add(5, 2);
+//        System.out.println(m);
+//
+//
+//        System.out.println("add 13");
+//        m.add(13, 2);
+//        System.out.println(m);
+//
+//        System.out.println("add 2");
+//        m.add(2, 2);
+//        System.out.println(m);
+//
+//        System.out.println("remove 2");
+//        m.remove(2);
+//        System.out.println(m);
+//
+//        System.out.println("add ?");
+//        m.add(3, 9);
+//        System.out.println(m);
+//
+//        System.out.println("Exist 3?" + m.exists(4));
+//
+//        System.out.println("add 2");
+//        m.add(2, 2);
+//        System.out.println(m);
 
 
     }
